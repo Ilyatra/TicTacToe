@@ -1,0 +1,50 @@
+.body {
+    padding: 0;
+    margin: 0;
+}
+
+.body__field {
+    margin: auto;
+}
+
+.field {
+    display: grid;
+    width: 70vh;
+    border: 1px solid black;
+}
+
+.field_3x3 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.field_15x15 {
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-columns: repeat(15, 1fr);
+}
+
+.field__cell {
+    /* display: flex; */
+    border: 1px solid black;
+    text-align: center;
+    vertical-align:middle;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: 500;
+    /* font-size: 20vh; */
+}
+
+
+.field__cell:hover {
+    background-color: rgb(169, 193, 238);
+}
+
+.cell_15x15 {
+    height: calc(70vh / 15);
+    font-size: 4vh;
+}
+
+.cell_3x3 {
+    height: calc(70vh / 3);
+    font-size: 20vh;
+}

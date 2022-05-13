@@ -149,7 +149,7 @@ const ControlTab = function () {
         while (mainElem.firstChild) {
             mainElem.firstChild.remove();
         }
-        player = Player()
+        player = Player();
         board.makeField();
     }
 
@@ -162,7 +162,7 @@ const ControlTab = function () {
         while (mainElem.firstChild) {
             mainElem.firstChild.remove();
         }
-        player = Player()
+        player = Player();
         board.makeField();
     }
 
@@ -171,6 +171,6 @@ const ControlTab = function () {
 }
 
 let player = Player();
-let  board = Board(3, 3);
+let board = Board(3, 3);
 const controlTab = ControlTab();
 board.makeField();

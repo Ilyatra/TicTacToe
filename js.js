@@ -135,6 +135,7 @@ const Ai = function () {
 const ControlTab = function () {
     const restartButton = document.querySelector('[name="restart"]');
     const modeSwitch = document.querySelector('[name="mode-switch"]');
+
     const mainElem = document.querySelector('main');
 
     const modeSwitchHandler = (event) => {

@@ -1,9 +1,32 @@
 .body {
     padding: 0;
     margin: 0;
+
+    display: grid;
+    grid-template: auto;
+    grid-template-areas: 
+    ".  header ."
+    ". field aside"
+    "footer  footer footer";
+    /* ". header header header ."
+    ". field field field aside"
+    "footer footer footer footer footer"; */
+    
 }
 
 .body__field {
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    grid-area: header;
+    margin: 25px auto;
+    width: 70vh;
+}
+
+.header__current-player {
     margin: auto;
 }
 
@@ -11,6 +34,7 @@
     display: grid;
     width: 70vh;
     border: 1px solid black;
+    grid-area: field;
 }
 
 .field_3x3 {
@@ -24,14 +48,12 @@
 }
 
 .field__cell {
-    /* display: flex; */
     border: 1px solid black;
     text-align: center;
     vertical-align:middle;
     text-transform: uppercase;
     font-family: Arial;
     font-weight: 500;
-    /* font-size: 20vh; */
 }
 
 
@@ -47,4 +69,12 @@
 .cell_3x3 {
     height: calc(70vh / 3);
     font-size: 20vh;
+}
+
+.current-player { 
+
+}
+
+.score-tab {
+    grid-area: aside;
 }

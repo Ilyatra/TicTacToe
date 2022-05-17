@@ -82,7 +82,7 @@ const Board = function (s, needToWin) {
             }
         })
 
-        if (cellNum == turnCount) return 'Draw';
+        if (cellNum == turnCount && winner == '') return 'Draw';
         return winner;
      }
 
@@ -119,10 +119,15 @@ const Player = function () {
         if (currentPlayer === 'X') {
             currentPlayer = 'O';
         }else{
-            currentPlayer = 'X'
+            currentPlayer = 'X';
         }
-        
+        currentPlayerShow();
         return result;
+    }
+
+    const currentPlayerShow = () => {
+        const elem = document.querySelector('.current-player');
+        elem.innerHTML = currentPlayer;
     }
 
     return {turn, }
@@ -154,7 +159,7 @@ const ControlTab = function () {
         board.makeField();
     }
 
-    const restartHandler = (event) =>{
+    const restartHandler = (event) => {
         if (event.target.innerHTML !== 'Gomoku') {
             board = Board(3, 3);
         }else{

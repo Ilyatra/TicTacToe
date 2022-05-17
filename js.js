@@ -82,7 +82,7 @@ const Board = function (s, needToWin) {
             }
         })
 
-        if (cellNum == turnCount && winner == '') return 'Draw';
+        if (cellNum == turnCount && winner == '') return 'draw';
         return winner;
      }
 
@@ -98,7 +98,11 @@ const Board = function (s, needToWin) {
             fieldUpdate(event.target.dataset.coords, sym);
             event.target.innerHTML = sym;
             // winnerCheck(sym, event.target.dataset.coords)
-            console.log(winnerCheck(sym, event.target.dataset.coords));
+            let winner = winnerCheck(sym, event.target.dataset.coords);
+            if (winner !== '') {
+                scoreTab.scoreUp(winner);
+            }
+            console.log(winner);
          }else{
             return;
          }
@@ -107,8 +111,30 @@ const Board = function (s, needToWin) {
 }
 
 const ScoreTab = function () {
+    let score = {O:0, X:0, draw: 0};
+
     const tabElem = document.querySelector('.score-tab');
-    return;
+    const oElem = tabElem.querySelector('.score-tab__player-o');
+    const xElem = tabElem.querySelector('.score-tab__player-x');
+    const drawElem = tabElem.querySelector('.score-tab__draw');
+    
+    const scoreUp = (matchResult) => {
+        score[matchResult] += 1;
+        renderScore();
+    }
+
+    const reset = () => {
+        score = {o:0, x:0, draw: 0};
+        renderScore(); 
+    }
+
+    const renderScore = () => {
+        oElem.innerHTML = `o : ${score.O}`;
+        xElem.innerHTML = `x : ${score.X}`;
+        drawElem.innerHTML = `draw : ${score.draw}`;
+    }
+
+    return {scoreUp, reset,};
 }
 
 const Player = function () {
@@ -179,4 +205,5 @@ const ControlTab = function () {
 let player = Player();
 let board = Board(3, 3);
 const controlTab = ControlTab();
+const scoreTab = ScoreTab();
 board.makeField();

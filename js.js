@@ -17,7 +17,11 @@ const Board = function (s, needToWin) {
             squareElem.classList.add('field__cell', `cell_${size}x${size}`);
             squareElem.dataset.coords = rowNum + ':' + colNum;
             row.push(' ');
+
             squareElem.addEventListener('click', clickHandler);
+            squareElem.addEventListener('mouseover', mouseInHandler);
+            squareElem.addEventListener('mouseout', mouseOutHandler);
+
             fieldElem.append(squareElem);
             colNum++;
             if (colNum == size) {
@@ -91,22 +95,44 @@ const Board = function (s, needToWin) {
         field[row][col] = sym;
      }
 
+     const mouseInHandler = (event) => {
+        const target = event.target;
+        if (target.innerHTML !== '') return;
+        console.log(player.currentPlayer)
+        if (document.querySelector('.current-player').innerHTML === 'X') {
+            target.classList.add('field__cell-hovered-x');
+        }else{
+            target.classList.add('field__cell-hovered-o');
+        }
+        
+
+     }
+
+     const mouseOutHandler = (event) => {
+        removeHoverEffect(event.target);
+    }
+
+    const removeHoverEffect = (elem) => {
+        elem.classList.remove('field__cell-hovered-x');
+        elem.classList.remove('field__cell-hovered-o');
+    }
+
      const clickHandler = (event) => {
          if (event.target.innerHTML === '') {
             const sym = player.turn();
             turnCount++;
             fieldUpdate(event.target.dataset.coords, sym);
             event.target.innerHTML = sym;
-            // winnerCheck(sym, event.target.dataset.coords)
+            removeHoverEffect(event.target);
             let winner = winnerCheck(sym, event.target.dataset.coords);
             if (winner !== '') {
                 scoreTab.scoreUp(winner);
             }
-            console.log(winner);
          }else{
             return;
          }
      }
+     
      return {makeField, field};
 }
 
@@ -156,7 +182,7 @@ const Player = function () {
         elem.innerHTML = currentPlayer;
     }
 
-    return {turn, }
+    return {turn, currentPlayer,}
 }
 
 const Ai = function () {

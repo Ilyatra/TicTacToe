@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
 
+
     display: grid;
     grid-template: auto;
     grid-template-areas: 
@@ -56,9 +57,14 @@
     font-weight: 500;
 }
 
+.field__cell-hovered-x:after {
+    content: "X";
+    color: rgb(121, 121, 121);
+}
 
-.field__cell:hover {
-    background-color: rgb(169, 193, 238);
+.field__cell-hovered-o:after {
+    content: "O";
+    color: rgb(121, 121, 121);
 }
 
 .cell_15x15 {

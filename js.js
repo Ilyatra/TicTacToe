@@ -95,17 +95,31 @@ const Board = function (s, needToWin) {
         field[row][col] = sym;
      }
 
+     const roundEnd = (winner) => {
+        const modal = document.querySelector('.modal');
+        const messageElem = modal.querySelector('.modal__message');
+        let message = '';
+        modal.classList.add('modal--visible');
+
+        winner !== 'draw' ? message = `Winner is ${winner}` : message = 'Draw';
+        messageElem.innerHTML = message;
+
+        modal.querySelector('button').addEventListener('click', roundPlay);
+     }
+
+     const roundPlay = () => {
+        document.querySelector('.modal').classList.remove('modal--visible');
+        controlTab.restart();
+     }
+
      const mouseInHandler = (event) => {
         const target = event.target;
         if (target.innerHTML !== '') return;
-        console.log(player.currentPlayer)
         if (document.querySelector('.current-player').innerHTML === 'X') {
             target.classList.add('field__cell-hovered-x');
         }else{
             target.classList.add('field__cell-hovered-o');
         }
-        
-
      }
 
      const mouseOutHandler = (event) => {
@@ -127,6 +141,7 @@ const Board = function (s, needToWin) {
             let winner = winnerCheck(sym, event.target.dataset.coords);
             if (winner !== '') {
                 scoreTab.scoreUp(winner);
+                roundEnd(winner);
             }
          }else{
             return;
@@ -182,7 +197,7 @@ const Player = function () {
         elem.innerHTML = currentPlayer;
     }
 
-    return {turn, currentPlayer,}
+    return {turn, currentPlayerShow,}
 }
 
 const Ai = function () {
@@ -211,8 +226,8 @@ const ControlTab = function () {
         board.makeField();
     }
 
-    const restartHandler = (event) => {
-        if (event.target.innerHTML !== 'Gomoku') {
+    const restart = () => {
+        if (modeSwitch.innerHTML == 'Gomoku') {
             board = Board(3, 3);
         }else{
             board = Board(15, 5);
@@ -221,11 +236,18 @@ const ControlTab = function () {
             mainElem.firstChild.remove();
         }
         player = Player();
+        player.currentPlayerShow();
         board.makeField();
+    }
+
+    const restartHandler = (event) => {
+        restart();
     }
 
     restartButton.addEventListener('click', restartHandler);
     modeSwitch.addEventListener('click', modeSwitchHandler);
+
+    return {restart,}
 }
 
 let player = Player();

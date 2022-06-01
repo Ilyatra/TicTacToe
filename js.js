@@ -219,11 +219,7 @@ const ControlTab = function () {
             event.target.innerHTML = 'Tic-Tac-Toe';
         }
         
-        while (mainElem.firstChild) {
-            mainElem.firstChild.remove();
-        }
-        player = Player();
-        board.makeField();
+        restart();
     }
 
     const restart = () => {
